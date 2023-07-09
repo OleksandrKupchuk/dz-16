@@ -29,7 +29,6 @@ public class RestAssuredTest extends BaseTest {
                 .body(createBookingBody)
                 .post();
 
-        response.prettyPrint();
         Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(response.as(CreateBookingResponse.class).getBooking().getFirstname(), createBookingBody.getFirstname());
         Assert.assertEquals(response.as(CreateBookingResponse.class).getBooking().getLastname(), createBookingBody.getLastname());
@@ -60,7 +59,6 @@ public class RestAssuredTest extends BaseTest {
                 .body(createBookingBody)
                 .patch("/{id}", getRandomBookingIds());
 
-        response.prettyPrint();
         Assert.assertEquals(response.statusCode(), 200);
         Assert.assertEquals(response.as(CreateBookingBody.class).getTotalprice(), createBookingBody.getTotalprice());
     }
@@ -87,7 +85,6 @@ public class RestAssuredTest extends BaseTest {
                 .body(createBookingBody)
                 .put("/" + getRandomBookingIds());
 
-        response.prettyPrint();
         CreateBookingBody createBookingResponse = response.as(CreateBookingBody.class);
 
         Assert.assertEquals(response.statusCode(), 200);
@@ -102,8 +99,6 @@ public class RestAssuredTest extends BaseTest {
                 .header("Accept", "application/json")
                 .header("Cookie", "token=" + getToken())
                 .delete("/" + bookingID);
-
-        response.prettyPrint();
 
         Assert.assertEquals(response.statusCode(), 201);
         Assert.assertFalse(isExistBookingID(bookingID));
